@@ -42,6 +42,9 @@ test("paragraph with multiple punctuation and newlines", () => {
 
 test("paragraphs with url's are ignored", () => {
   expect(tokenizeParagraph("foo http://foo.com baz")).toEqual([]);
+  expect(tokenizeParagraph("foo HTTP://foo.com baz")).toEqual([]);
+  expect(tokenizeParagraph("foo https://foo.com baz")).toEqual([]);
+  expect(tokenizeParagraph("foo www.foo.com baz")).toEqual([]);
 });
 
 test("paragraphs with code quotes are ignored", () => {
