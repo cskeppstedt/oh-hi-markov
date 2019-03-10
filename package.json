@@ -2,13 +2,16 @@
   "name": "oh-hi-markov",
   "version": "0.0.1",
   "description": "Generate text using markov chains",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/lib/index.js",
+  "types": "dist/lib/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "files": [
+    "dist/lib"
+  ],
   "keywords": [
     "markov",
     "markov-chain",
