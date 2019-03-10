@@ -1,4 +1,4 @@
-import generateSentence from "../../lib/generate-text/generate-sentence";
+import generateSentence from "../../lib/generate-sentence/generate-sentence";
 import { START_TOKEN } from "../../lib/build-map/build-map";
 
 test("null input", () => {
