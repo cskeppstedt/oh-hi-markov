@@ -1,9 +1,12 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var PARAGRAPH_DELIMITER = "\\n";
+var is_valid_word_1 = __importDefault(require("./is-valid-word"));
+var normalize_word_1 = __importDefault(require("./normalize-word"));
 var RE_SENTENCE_SPLIT = /[!?.]+/g;
 var RE_WORD_SPLIT = /\s+/g;
-var RE_PUNCTUATION_STRIP = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]+/g;
 var isNonEmptyString = function (str) {
     return typeof str === "string" && str.trim().length > 0;
 };
@@ -14,9 +17,6 @@ var hasURL = function (paragraph) {
 var hasSpoilers = function (paragraph) { return /\|\|[^|]+\|\|/g.test(paragraph); };
 var hasQuotes = function (paragraph) { return />>>/g.test(paragraph); };
 var hasCodeQuotes = function (paragraph) { return /```/g.test(paragraph); };
-var normalizeWord = function (word) {
-    return word.replace(RE_PUNCTUATION_STRIP, "").toLowerCase();
-};
 exports.default = (function (paragraph) {
     if (!isNonEmptyString(paragraph)) {
         return [];
@@ -38,7 +38,8 @@ exports.default = (function (paragraph) {
         .map(function (sentence) {
         return sentence
             .split(RE_WORD_SPLIT)
-            .map(normalizeWord)
+            .filter(is_valid_word_1.default)
+            .map(normalize_word_1.default)
             .filter(isNonEmptyString);
     })
         .filter(isNonEmptyArray);

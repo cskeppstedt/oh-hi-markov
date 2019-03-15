@@ -1,7 +1,8 @@
-const PARAGRAPH_DELIMITER = "\\n";
+import isValidWord from "./is-valid-word";
+import normalizeWord from "./normalize-word";
+
 const RE_SENTENCE_SPLIT = /[!?.]+/g;
 const RE_WORD_SPLIT = /\s+/g;
-const RE_PUNCTUATION_STRIP = /[\u2000-\u206F\u2E00-\u2E7F\\'!"#$%&()*+,\-.\/:;<=>?@\[\]^_`{|}~]+/g;
 
 const isNonEmptyString = (str: string) =>
   typeof str === "string" && str.trim().length > 0;
@@ -16,9 +17,6 @@ const hasSpoilers = (paragraph: string) => /\|\|[^|]+\|\|/g.test(paragraph);
 const hasQuotes = (paragraph: string) => />>>/g.test(paragraph);
 
 const hasCodeQuotes = (paragraph: string) => /```/g.test(paragraph);
-
-const normalizeWord = (word: string) =>
-  word.replace(RE_PUNCTUATION_STRIP, "").toLowerCase();
 
 export default (paragraph: string): string[][] => {
   if (!isNonEmptyString(paragraph)) {
@@ -46,6 +44,7 @@ export default (paragraph: string): string[][] => {
     .map(sentence =>
       sentence
         .split(RE_WORD_SPLIT)
+        .filter(isValidWord)
         .map(normalizeWord)
         .filter(isNonEmptyString)
     )

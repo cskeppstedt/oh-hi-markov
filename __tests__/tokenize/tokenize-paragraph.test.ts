@@ -34,7 +34,7 @@ test("paragraph with punctuation", () => {
 });
 
 test("paragraph with multiple punctuation and newlines", () => {
-  expect(tokenizeParagraph("Foo   baR!! \n\nbAz, beTa, foo.")).toEqual([
+  expect(tokenizeParagraph("~ | Foo   baR!! \n\nbAz, beTa, foo.")).toEqual([
     ["foo", "bar"],
     ["baz", "beta", "foo"]
   ]);
